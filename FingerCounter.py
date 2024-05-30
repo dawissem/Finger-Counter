@@ -27,11 +27,11 @@ detector = htm.HandDetector(detectionCon=0.75)
 tipIds = [4, 8, 12, 16, 20]
 
 while True:
-    # Read Frame
+    # takra frame
     success, img = cap.read()
-    # Flip Image
+    # filper l'image
     img = cv2.flip(img, 1)
-    # Find Hand Landmarks
+    # Trouver objet main
     img = detector.findHands(img)
     lmList = detector.findPosition(img, draw=False)
     
@@ -57,14 +57,14 @@ while True:
         pos = int(w/2)
         cv2.rectangle(img, (0, h), (w, h+60), (0, 255, 0), cv2.FILLED)
         cv2.putText(img, str(totalFingers), (pos - 20, h+55), cv2.FONT_HERSHEY_PLAIN, 5, (255, 0, 0), 3)
-    # Frame Rate
+    
     cTime = time.time()
     fps = 1 / (cTime - pTime)
     pTime = cTime
-    # rhs
+   
     cv2.putText(img, f'FPS: {int(fps)}', (400, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
     
-    # Display Image
+    # Affichage image
     cv2.imshow("Image", img)
-    # Exit
+    
     cv2.waitKey(1)
